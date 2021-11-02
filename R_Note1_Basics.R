@@ -215,7 +215,7 @@ data[gooddata, ]  # only show good rows
 
 #### Subsetting END ####
 
-
+a <- 0
 
 
 

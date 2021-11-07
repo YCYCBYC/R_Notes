@@ -81,11 +81,45 @@ lapply(split(s, f), mean)
 
 
 
+#### DEBUGGING TOOLS ####
+
+## A test
+printmessege <- function(x) {
+    if(is.na(x))
+        print('not support')
+    else if(x > 0)
+        print('x > 0')
+    else
+        print('x < 0')
+    
+    invisible(x)
+}
 
 
 
 
+## traceback: print out the function call stack after an error occurs, only the most recent one
+## debug: flag a function for 'debug' mode, execute one line at a time
+## browser: when the execution is called, run debug
+## trace: insert debugging code into a function
+## recover: mofify the error behavior so that can browse the function call stack
 
+mean(nono)
+# Error in mean(nono) : object 'nono' not found
+traceback()
+# 1: mean(nono)
+
+lm(y - nono)
+# Error in stats::model.frame(formula = y - nono, drop.unused.levels = TRUE) : 
+# object 'y' not found
+traceback()
+# 4: stats::model.frame(formula = y - nono, drop.unused.levels = TRUE)
+# 3: eval(mf, parent.frame())
+# 2: eval(mf, parent.frame())
+# 1: lm(y - nono)
+
+debug(lm)  # firstly use debug()
+lm(y - nono)  # then type codes
 
 
 

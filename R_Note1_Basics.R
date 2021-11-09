@@ -1,6 +1,7 @@
 print("This file was created in Rstudio")
 print("And now it lives on GitHub")
-cat('\n')
+
+
 
 
 ## Main Data Science Questions
@@ -12,14 +13,9 @@ cat('\n')
 #  Mechanistic:  Change in a variable -> exact change in another variable
 
 
-## Function Try 1
-firstfunction <- function() {
-  x = rnorm(100)
-  print( mean(x) )
-}
 
 
-#### DATE TYPE BEGIN ####
+#### DATA TYPE BEGIN ####
 
 #  five basic objects: character, numeric(real numbers), integer, complex, logical(T/F)
 #  vector can only keep objects of the same class
@@ -35,23 +31,22 @@ print(1/0)      # Inf
 print(0/0)      # NaN
 peint(Inf/Inf)  # NaN
 
-cat('\n')
-
 
 ## DATA TYPE - vector
 v1 <- vector('logical', length = 4)
 v2 <- vector('numeric', length = 8)
-print(v1)
-print(v2)
+v1
+v2
 
-#  paste
+
+## paste
 my_char <- c('My', 'name', 'is')
 my_char
 paste(my_char, collapse = " ")
 paste(1:3, c('X', 'Y', 'Z'), sep = "")  # [1] "1X" "2Y" "3Z"
+paste(1:6, c('X', 'Y', 'Z'), sep = "")  # [1] "1X" "2Y" "3Z" "4X" "5Y" "6Z"
 
 
-cat('\n')
 
 
 ## Explicit Coercion
@@ -65,8 +60,6 @@ x3 <- as.logical(x0)
 print(x3)
 x4 <- as.character(x0)
 print(x4)
-
-cat('\n')
 
 
 ## DATA TYPE - Matrices
@@ -82,16 +75,12 @@ v4 = rbind(v1, v2)
 print(v3)
 print(v4)
 
-cat('\n')
-
 
 ## DATA TYPE - Factor
 f0 <- factor(c('YC', 'YB', 'YC', 'YA', 'YA'), level = c('YA', 'YB', 'YC'))
 print(f0)
 print(table(f0))
 print(unclass(f0))
-
-cat('\n')
 
 
 ## DATA TYPE - Missing Values
@@ -100,17 +89,16 @@ x = c(1, 2, NA, NaN, 5)
 print(is.na(x))
 print(is.nan(x))
 # read file and judge
-test1 = read.csv(file = 'C:/Users/ycycb/Documents/dataclean.csv')
+test1 = read.csv(file = '~/dataclean.csv', head = TRUE)
 View(is.na(test1))
 
-cat('\n')
+complete.cases(test1)
+test1[complete.cases(test1), ]
 
 
 ## DATA TYPE - Data Frame
 x <- data.frame(foo = 1:4, bar = c(T, F, F, F))
 print(x)
-
-cat('\n')
 
 
 ## DATA TYPE - Names Attributes
@@ -121,7 +109,6 @@ names(x) <- c('A', 'B', 'C', 'F')
 print(x)
 names(x)
 
-cat('\n')
 
 #### DATA TYPE END ####
 

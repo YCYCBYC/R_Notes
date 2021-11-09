@@ -18,8 +18,8 @@ best <- function(state, outcome) {
     
     ## filter states
     data2 <- data1[data1$State == state1, ]
-#    data2 <- data2[complete.cases(data2), ]
     
+    ## filter outcome
     if(outcome == 'heart attack') {
         data3 <- data2[, c(2,11)]
     } else if(outcome == 'heart failure') {
@@ -28,10 +28,14 @@ best <- function(state, outcome) {
         data3 <- data2[, c(2,23)]
     }
     
-    data3[, 2] <- as.integer(data3[, 2])
+    ## data clean
+    data3[, 2] <- as.numeric(data3[, 2])
     data3 <- data3[complete.cases(data3), ]
-    min2 <- which(data3[, 2] == min(data3[, 2]))
-    print(data3[min2, 1])
+    
+    ## locate mins
+    minloc <- which(data3[, 2] == min(data3[, 2]))
+    mintitle <- data3[minloc, 1]
+    print(sort(mintitle)[1])
 }
 
 

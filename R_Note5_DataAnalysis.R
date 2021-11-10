@@ -73,11 +73,25 @@ qplot(speed, dist, data = cars)
 
 
 
+#### Graphics Device ####
+## make a plot appear a window, a PDF, a JPEG
+## pdf
+## svg
+## png
+## jpeg
+## tiff
 
+## currently alive graphics device can be found by calling dev.cur()
+## every open graphics device is assigned an interger >=2
+## only occur one device at a time
+## copy plots: dev.copy()   dev.copy2pdf
 
-
-
-
+## create plot in pdf ##
+pdf(file = 'My Plot.pdf')
+library(datasets)
+with(faithful, plot(eruptions, waiting))
+title(main = 'Old Faithful Geyser Data')
+dev.off()
 
 
 

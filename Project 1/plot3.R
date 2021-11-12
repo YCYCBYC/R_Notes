@@ -1,7 +1,7 @@
 #### Week 1 Project 1 plot3 ####
 
 ## Load data
-rawdata <- read.csv('household_power_consumption.txt', header = TRUE, na.strings = '?', sep = ';')
+rawdata <- read.csv('household_power_consumption.txt', header = TRUE, na.strings = '?', sep = ',')
 
 # Change date format
 rawdata$datetime <- as.POSIXct(paste(rawdata$Date, rawdata$Time), format = "%d/%m/%Y %H:%M:%S")

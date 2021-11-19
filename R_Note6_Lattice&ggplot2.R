@@ -49,6 +49,7 @@ xyplot(y ~ x | f, panel = function(x, y, ...){
 
 #### ggplot2 ####
 
+library(datasets)
 data(mpg)
 str(mpg)
 
@@ -59,7 +60,8 @@ qplot(displ, hwy, data = mpg, color = drv)  # auto generate and lable color
 qplot(displ, hwy, data = mpg, geom = c('point', 'smooth'))
 
 g <- qplot(displ, hwy, data = mpg)
-g <- g + geom_point(color = 'steelblue', size = 2, alpha = 1/2) + geom_smooth(method = 'lm')
+g <- g + geom_point(color = 'steelblue', size = 2, alpha = 1/2)
+       + geom_smooth(method = 'lm')
 g
 
 qplot(hwy, data = mpg, fill = drv)

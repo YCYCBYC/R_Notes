@@ -55,7 +55,8 @@ plot(svd1$u[,1], 40:1, xlab = "row", ylab = "First left singular vctor", pch = 2
 plot(svd1$v[,1], xlab = "column", ylab = "First right singular vctor", pch = 20)
 
 
-## missing values
+## plot and color
+
 
 
 

@@ -119,36 +119,128 @@ x
 
 
 #### summarize data ####
+testdata <- read.csv('transtest.csv', sep = ',', header = TRUE)
 
+head(testdata, 6)
+tail(testdata, 6)
 
-head(testdata[, 1:4], 6)
-tail(testdata[, 1:4], 6)
+summary(testdata[, 1:6])
+str(testdata[, 1:6])
 
-summary(testdata[, 1:4])
-str(testdata[, 1:4])
-
-quantile(testdata[,2], na.rm = TRUE)
-quantile(testdata[,2], na.rm = TRUE, probs = c(0.1, 0.2, 0.5))
+quantile(testdata[,6], na.rm = TRUE)
+quantile(testdata[,6], na.rm = TRUE, probs = c(0.1, 0.2, 0.5))
 
 
 ## check missing values
-sum(is.na(testdata$SERIALNO))  # number of missing values
-any(is.na(testdata$SERIALNO))  # if there is missing values
-any(!is.na(testdata$SERIALNO))  # if there is no missing values
-mean(!is.na(testdata$SERIALNO))  # percentage of missing values
+sum(is.na(testdata$pov_idx))  # number of missing values
+any(is.na(testdata$pov_idx))  # if there is missing values
+mean(is.na(testdata$pov_idx))  # percentage of missing values
 
 
 ## row and column sum
-colSums(testdata[, 2:4])
-rowSums(testdata[1:4, 2:4])
+colSums(testdata[, 6:10], na.rm = TRUE)
+rowSums(testdata[1:10, 6:10], na.rm = TRUE)
 
 
 ## values with specific characteristics
-table(testdata$SERIALNO %in% c(835))
-table(testdata$SERIALNO %in% c(835, 2120))  # amount of records with SERIALNO = 835 or 2120
+table(testdata$STATE_NAME %in% 'Pennsylvania') # amount of records
+
+
+## create new variables
+s1 <- seq(1,10,by=2); s1
+s2 <- seq(1,10, length=3); s2
+
+
+## create binary variables
+testdata$wrongZIP <- ifelse(testdata$GEOID < 15217000000, TRUE, FALSE)
+table(testdata$smallZIP)
+table(testdata$GEOID < 15217000000)
+
+
+## create category variables
+testdata$povgroup <- cut(testdata$pov_idx, breaks = quantile(testdata$pov_idx, na.rm = TRUE))
+table(testdata$povgroup)
+
+
+## common transforms
+abs(x)
+sqrt(x)
+ceiling(x)
+floor(x)
+round(x, digits = 3)
 
 
 
 
+#### reshape data ####
+library(reshape2)
+data(mtcars)
+head(mtcars)
+
+
+## melt
+mtcars$carname <- rownames(mtcars)
+mtcars1 <- melt(mtcars, id = c('carname','gear','cyl'), measure.vars = c('mpg','hp'))
+head(mtcars1,3); tail(mtcars1,3)
+
+
+
+
+#### dplyr package ####
+library(dplyr)
+testdata1 <- read.csv('transtest.csv')
+str(testdata1)
+
+
+## select columns
+head(select(testdata1, 1:6))
+head(select(testdata1, -(1:6)))
+
+
+## filter rows
+head(filter(testdata1, pov_idx > 90 & lbr_idx > 90), 10)
+
+
+## arrange order
+arrangebypov <- arrange(testdata1, pov_idx)
+head(arrangebypov)
+
+arrangebypov <- arrange(testdata1, desc(pov_idx))
+head(arrangebypov)
+
+
+## rename
+testdata1 <- rename(testdata1, ZIPCODE = ï..GEOID)
+head(testdata1, 2)
+
+
+## mutate
+testdata1 <- mutate(testdata1, new_idx = pov_idx - lbr_idx)
+head(select(testdata1, ZIPCODE, new_idx))
+
+testdata1 <- mutate(testdata1, povcat = factor(1 * (pov_idx < 80), labels = c('rich','poor')))
+head(select(testdata1, ZIPCODE, pov_idx, povcat))
+
+
+## join
+df1 <- data.frame(id=sample(3:10), x=rnorm(8))
+df2 <- data.frame(id=sample(1:8), y=rnorm(8))
+
+full_join(df1, df2)
+left_join(df1, df2)
+right_join(df1, df2)
+inner_join(df1, df2)
+
+
+## merge data
+## merge(datax, datay, by.x='', by.y='', all=TRUE)
+df1 <- data.frame(ida=sample(3:10), x=rnorm(10))
+df2 <- data.frame(idb=sample(1:8), y=rnorm(8))
+
+testmerge <- merge(df1, df2, by.x='ida', by.y='idb')
+head(testmerge)
+
+testmerge2 <- merge(df1, df2)
+head(testmerge2)
 
 

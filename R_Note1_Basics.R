@@ -3,7 +3,6 @@ print("And now it lives on GitHub")
 
 
 
-
 ## Main Data Science Questions
 #  Descriptive:  Summarize data
 #  Exploratory:  Find relationships that weren't known before
